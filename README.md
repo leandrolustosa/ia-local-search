@@ -1,6 +1,19 @@
 # Local Search
 Trabalho de programação de algoritmos de local search Hill-Climbing, Hill-Climbing com Restart, Simulated Annealing e Genetic Algorithm, para o curso de mestrado do IFES campus Serra turma 2 de 2020.
 
+# Ambiente
+
+- Todo o trabalho foi feito em sistema operacional windows, mas com tecnologias independentes de SO
+- IDE: Visual Studio Code versão 1.46.1
+  - Extensões
+    C#
+    Python
+    LaTeX Workshop
+    LaTeX Utilities    
+- Python versão 3.6.6
+- .NET Core versão 3.1.101
+- Latex compilado com MikTeX versão 2.9
+
 # Organização
 
 ## Código fonte em Python
@@ -15,15 +28,32 @@ Trabalho de programação de algoritmos de local search Hill-Climbing, Hill-Clim
   - problema 1 - apenas "x" estará preenchido
   - problema 2 - apenas "x" e "y" estarão preenchidos
   - problema 3 - apenas "coordenadas" e "ordemVisitacao" estarão preenchidos
-- hill-climbing - implementação do algoritmo hill-climbing
-- hill-climbing-com-restart - implementação do algoritmo hill-climbing com restart
-- simulated-annealing - implementação do algoritmo simulated annealing
-- genetic-algorithm - implementação do algoritmo genetic algorithm
+- hill_climbing - implementação do algoritmo hill-climbing
+- hill_climbing_restart - implementação do algoritmo hill-climbing com restart
+- simulated_annealing - implementação do algoritmo simulated annealing
+- genetic_algorithm - implementação do algoritmo genetic algorithm
 - util - Classe contendo métodos utilitários que são utilizados principalmente pelas implementações dos algoritmos
+
+### Como executar
+
+- Problema 1
+```
+python local_search.py --problema 1
+```
+- Problema 2
+```
+python local_search.py --problema 2
+```
+- Problema 3
+```
+python local_search.py --problema 3
+```
 
 ## Relatório em Latex
 
-- /relatorio/main.tx
+- /relatorio/main.tex - Arquivo principal do relatório
+- /relatorio/relatorio_final.pdf - Relatório final com as conclusões e observações sobre os algoritmos
+- /relatorio/imagens - Pasta onde ficam armazenadas as imagens geradas pelos algoritmos e também de onde o relatório referencia as imagens
 
 ## Aplicação Web para visualização de gráficos dinâmicos em .NET Core
 
