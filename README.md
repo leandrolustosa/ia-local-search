@@ -101,4 +101,4 @@ No diretório /visualizador-dinamico, basta digitar as linhas de comando:
 dotnet restore
 dotnet run
 ```
-Pelo VS Code, deixei configurados Launchs, tanto para o Python como para o .NET Core, clique no ícone de Run (Play com um Bug) ou pressione as teclas Ctrl+Shift+D. Selecione uma das opção e clique no botão "Play", ou pressione a tecla F5. Se quiser executar sem rodar o Debug, basta pressionar as teclas Ctrl+F5.
+Pelo VS Code, deixei configurados Launchs, tanto para o Python como para o .NET Core, clique no ícone de Run (Play com um Bug) ou pressione as teclas Ctrl+Shift+D. Selecione uma das opções e clique no botão "Play", ou pressione a tecla F5. Se quiser executar sem rodar o Debug, basta pressionar as teclas Ctrl+F5.
