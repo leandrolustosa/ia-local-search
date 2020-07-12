@@ -1,0 +1,167 @@
+﻿@model LocalSearchModel
+
+@{
+    ViewData["Title"] = "Home Page";
+    var listaProblemas = new List<SelectListItem> { new SelectListItem("Problema 1", "problema-1", true), new SelectListItem("Problema 2", "problema-2"), new SelectListItem("Problema 3", "problema-3") };
+    var listaAlgoritmos = new List<SelectListItem> { new SelectListItem("Hill-Climbing", "hill-climbing", true), new SelectListItem("Hill-Climbing com Restart", "hill-climbing-com-restart"), new SelectListItem("Simulated Annealing", "simulated-annealing"), new SelectListItem("Genetic Algorithm", "genetic-algorithm") };
+    var listaVersoes = new List<SelectListItem> { new SelectListItem("Ótima", "otima", true), new SelectListItem("v1", "v1"), new SelectListItem("v2", "v2"), new SelectListItem("v3", "v3"), new SelectListItem("v3", "v3"), new SelectListItem("v4", "v4"), new SelectListItem("v5", "v5"), new SelectListItem("v6", "v6") };
+    var listaVelocidades = new List<SelectListItem> { new SelectListItem("1x", "1000"), new SelectListItem("2x", "500"), new SelectListItem("4x", "250"), new SelectListItem("8x", "125", true), new SelectListItem("10x", "100"), new SelectListItem("50x", "20"), new SelectListItem("100x", "10") };
+}
+
+
+    <div class="row">
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selProblema">Problema</label>
+                <select id="selProblema" asp-for="Problema" asp-items="listaProblemas" class="custom-select">
+                    <option value="">Selecione um problema</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="selAlgoritmo">Algoritmo</label>
+                <select id="selAlgoritmo" asp-for="Algoritmo" asp-items="listaAlgoritmos" class="custom-select">
+                    <option value="">Selecione um algoritmo</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="btnVersao">Versão</label><br />
+                <select id="selVersoes" asp-for="Versao" asp-items="listaVersoes" class="custom-select">
+                    <option value="">Selecione uma versão</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="form-group">
+                <label for="btnAtualizar">Velocidade</label><br />
+                <select id="selVelocidades" asp-for="Velocidade" asp-items="listaVelocidades" class="custom-select">
+                    <option value="">Selecione uma velocidade</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-1">
+            &nbsp;
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios1" value="0" checked>
+                <label class="form-check-label" for="iteracaoRadios1">
+                    It. 1
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios2" value="1">
+                <label class="form-check-label" for="iteracaoRadios2">
+                    It. 2
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios3" value="2">
+                <label class="form-check-label" for="iteracaoRadios3">
+                    It. 3
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios4" value="3">
+                <label class="form-check-label" for="iteracaoRadios4">
+                    It. 4
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios5" value="4">
+                <label class="form-check-label" for="iteracaoRadios5">
+                    It. 5
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios6" value="5">
+                <label class="form-check-label" for="iteracaoRadios6">
+                    It. 6
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios7" value="6">
+                <label class="form-check-label" for="iteracaoRadios7">
+                    It. 7
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios8" value="7">
+                <label class="form-check-label" for="iteracaoRadios8">
+                    It. 8
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios9" value="8">
+                <label class="form-check-label" for="iteracaoRadios9">
+                    It. 9
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="iteracaoRadios" id="iteracaoRadios10" value="9">
+                <label class="form-check-label" for="iteracaoRadios10">
+                    It. 10
+                </label>
+            </div>
+        </div>
+        <div class="col-1">
+            &nbsp;
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2">
+            <div class="form-group">
+                <label for="lblValorInicial">Valor Inicial/Atual</label>
+                <input id="lblValorInicial" type="text" asp-for="ValorInicial" readonly class="form-control-plaintext" />
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="lblValorFinal">Valor Final</label>
+                <input id="lblValorFinal" type="text" asp-for="ValorFinal" readonly class="form-control-plaintext" />
+            </div>
+        </div>
+        <div class="col-6">
+            &nbsp;
+        </div>
+        <div class="col-2">
+            <div class="form-group">
+                <label for="btnAtualizar">&nbsp;</label><br />
+                <input type="button" id="btnAtualizar" class="btn btn-success btn-atualizar" value="Atualizar" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div id="local-search-chart">
+            </div>
+        </div>
+    </div>
+

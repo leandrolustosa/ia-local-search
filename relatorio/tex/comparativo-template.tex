@@ -1,0 +1,28 @@
+\subsection{Resumo}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c|  }
+\hline
+\rowcolor{lightgray}
+Algoritmo & Max & Min & Média & Desvio Padrão \\
+\hline
+#valores_tabela#
+\end{tabular}
+\caption{Tabela com dados consolidados dos algoritmos}
+\end{table}
+
+\begin{figure}[H]
+\centering
+  \begin{minipage}[b]{0.48\textwidth}
+    \includegraphics[width=88mm]{#caminho_figura_best#}
+    \caption{Dados da execução da função objetivo durante as 10 iterações por melhor valor.
+    \label{fig:#rotulo_figura_best#}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \includegraphics[width=88mm]{#caminho_figura_value#}
+    \caption{Dados da execução da função objetivo durante as 10 iterações por valor atual.
+    \label{fig:#rotulo_figura_value#}}
+  \end{minipage}
+\end{figure}

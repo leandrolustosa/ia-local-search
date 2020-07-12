@@ -1,0 +1,36 @@
+\subsection{Resumo}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ |c|c|c|c|c|  }
+\hline
+\rowcolor{lightgray}
+Algoritmo & Max & Min & Média & Desvio Padrão \\
+\hline
+Hill-Climbing & 37.798 & -9.992 & 1.623 & 16.181 \\
+\hline
+Hill-Climbing com restart & -9.589 & -10.0 & -9.91 & 0.169 \\
+\hline
+Simulated Annealing & 4.3 & -10.0 & -6.245 & 5.463 \\
+\hline
+Genetic Algorithm & -9.606 & -10.0 & -9.878 & 0.188 \\
+\hline
+
+\end{tabular}
+\caption{Tabela com dados consolidados dos algoritmos}
+\end{table}
+
+\begin{figure}[H]
+\centering
+  \begin{minipage}[b]{0.48\textwidth}
+    \includegraphics[width=88mm]{imagens/otima/problema-1-performance-algoritmos-best.png}
+    \caption{Dados da execução da função objetivo durante as 10 iterações por melhor valor.
+    \label{fig:problema-1-performance-algoritmos-best}}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[b]{0.48\textwidth}
+    \includegraphics[width=88mm]{imagens/otima/problema-1-performance-algoritmos-value.png}
+    \caption{Dados da execução da função objetivo durante as 10 iterações por valor atual.
+    \label{fig:problema-1-performance-algoritmos-value}}
+  \end{minipage}
+\end{figure}

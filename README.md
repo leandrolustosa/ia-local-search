@@ -33,20 +33,21 @@ Trabalho de programação de algoritmos de local search Hill-Climbing, Hill-Clim
 - simulated_annealing - implementação do algoritmo simulated annealing
 - genetic_algorithm - implementação do algoritmo genetic algorithm
 - util - Classe contendo métodos utilitários que são utilizados principalmente pelas implementações dos algoritmos
+- configuracao - Classe contendo métodos para configuração dos algoritmos e do módulo principal LocalSearch
 
 ### Como executar
 
 - Problema 1
 ```
-python local_search.py --problema 1
+python local_search.py [-p|--problema] 1
 ```
 - Problema 2
 ```
-python local_search.py --problema 2
+python local_search.py [-p|--problema] 2
 ```
 - Problema 3
 ```
-python local_search.py --problema 3
+python local_search.py [-p|--problema] 3
 ```
 
 ## Relatório em Latex
