@@ -13,12 +13,13 @@ from configuracao import Configuracao
 
 class Graficos:
     
-    def __init__(self, xlabel, ylabel, algoritmo = None, configuracao = None):
+    def __init__(self, xlabel, ylabel, algoritmo = None, configuracao = None, grafico = None):
         self.title = algoritmo
         self.xlabel = xlabel
         self.ylabel = ylabel
         self.algoritmo = algoritmo
         self.configuracao = configuracao
+        self.grafico = grafico
 
     def gerar(self, algoritmo):
 
@@ -34,25 +35,25 @@ class Graficos:
             if algoritmo.nome == Configuracao.simulated_annealing:
                 plt.ylim(-5, 350)
         else:
-            plt.ylim(16000, 34000)
+            plt.ylim(0, 34000)
 
         for i in range(10):
             with open("dados/{0}/{1}/{2}-{3}.dat".format(self.configuracao.problema.lower().replace(" ", "-"), self.configuracao.versao, self.algoritmo.lower().replace(" ", "-"), str(i))) as arquivo:
                 execucoes = jsonpickle.decode(arquivo.read())
 
-                if algoritmo.execucoes != None:
+                if algoritmo.execucoes != None and len(algoritmo.execucoes) < 10:
                     algoritmo.adicionarExecucao(Execucao(i, execucoes[-1].atual))
                 
                 x = np.array(list(map(lambda x: x.iteracao, execucoes)))                            
-                y = np.array(list(map(lambda x: getattr(x.atual, self.configuracao.grafico), execucoes)))
+                y = np.array(list(map(lambda x: getattr(x.atual, self.grafico), execucoes)))
 
                 plt.plot(x, y, '-')
         
-        nomeArquivo = "relatorio/imagens/{0}/{1}-{2}-funcao-objetivo-{3}.png".format(self.configuracao.versao, self.configuracao.problema.lower().replace(" ", "-"), self.algoritmo.lower().replace(" ", "-"), self.configuracao.grafico)
+        nomeArquivo = "relatorio/imagens/{0}/{1}-{2}-funcao-objetivo-{3}.png".format(self.configuracao.versao, self.configuracao.problema.lower().replace(" ", "-"), self.algoritmo.lower().replace(" ", "-"), self.grafico)
         Util.criarDiretorioSeNaoExiste(nomeArquivo)
         plt.savefig(nomeArquivo)
 
-    def gerarGraficoPerformanceSeaborn(self, titulo, caminhoImagem):
+    def gerarGraficoPerformanceSeaborn(self, titulo, caminhoImagem, grafico):
         plt.figure(figsize=(8,5), dpi=100)
         plt.title(titulo)
         plt.ylabel(self.ylabel)
@@ -63,7 +64,7 @@ class Graficos:
         elif self.configuracao.codigoProblema == 2:
             plt.ylim(-20, 150)
         else:
-            plt.ylim(16000, 34000)
+            plt.ylim(0, 34000)
 
         dicionario = {
             "iteracao": []
@@ -79,7 +80,7 @@ class Graficos:
                     if Configuracao.algoritmos.index(algoritmo) == 0:
                         dicionario["iteracao"].extend(list(map(lambda x: x.iteracao, execucoes)))
 
-                    dicionario[algoritmo].extend(list(map(lambda x: getattr(x.atual, self.configuracao.grafico), execucoes)))
+                    dicionario[algoritmo].extend(list(map(lambda x: getattr(x.atual, grafico), execucoes)))
             
         dados = pandas.DataFrame(dicionario)
 
@@ -89,27 +90,27 @@ class Graficos:
         Util.criarDiretorioSeNaoExiste(caminhoImagem)
         plt.savefig(caminhoImagem)
 
-    def gen_performance_curve(self, algoritmo):
+    def gerarCurvaPerformance(self, algoritmo, grafico):
         lista = []
 
         for i in range(10):
             with open("dados/{0}/{1}/{2}-{3}.dat".format(self.configuracao.problema.lower().replace(" ", "-"), self.configuracao.versao, algoritmo.lower().replace(" ", "-"), str(i))) as arquivo:
                 execucoes = jsonpickle.decode(arquivo.read())
                 
-                lista.append(list(map(lambda x: getattr(x.atual, self.configuracao.grafico), execucoes)))            
+                lista.append(list(map(lambda x: getattr(x.atual, grafico), execucoes)))            
     
         matriz = np.array(lista)
         
         return matriz
 
-    def plot_performance(self, n_calls, mat_10_x_1000, color):
+    def plotarGraficoPerformance(self, listaTotalIteracoes, mat_10_x_1000, color):
         
         mean = np.mean(mat_10_x_1000, axis=0)
         std = np.std(mat_10_x_1000, axis=0)
-        plt.plot(n_calls, mean, color=color)
-        plt.fill_between(n_calls, mean-std, mean+std, alpha=0.1, facecolor=color)
+        plt.plot(listaTotalIteracoes, mean, color=color)
+        plt.fill_between(listaTotalIteracoes, mean-std, mean+std, alpha=0.1, facecolor=color)
 
-    def gerarGraficoPerformance(self, titulo, caminhoImagem):
+    def gerarGraficoPerformance(self, titulo, caminhoImagem, grafico):
 
         plt.figure(figsize=(8,5), dpi=100)
         plt.title(titulo)
@@ -121,33 +122,46 @@ class Graficos:
         elif self.configuracao.codigoProblema == 2:
             plt.ylim(-20, 150)
         else:
-            plt.ylim(16000, 34000)
+            plt.ylim(0, 34000)
         
-        n_obj_function_calls = range(self.configuracao.numeroTotalIteracoes)
+        listaTotalIteracoes = range(self.configuracao.numeroTotalIteracoes)
         for indice in range(4):
 
-            algoritmo = self.gen_performance_curve(Configuracao.algoritmos[indice])
+            algoritmo = self.gerarCurvaPerformance(Configuracao.algoritmos[indice], grafico)
             
-            self.plot_performance(n_obj_function_calls, algoritmo, Configuracao.cores[indice])
+            self.plotarGraficoPerformance(listaTotalIteracoes, algoritmo, Configuracao.cores[indice])
             
         plt.legend(Configuracao.algoritmos)
 
         Util.criarDiretorioSeNaoExiste(caminhoImagem)
         plt.savefig(caminhoImagem)
 
-
     @classmethod
-    def gerarGraficoFuncaoObjetivo(cls, algoritmo, configuracao):
+    def gerarGrafico(cls, algoritmo, configuracao, grafico):
         inicioGraficos = time.perf_counter()
 
-        graficos = Graficos("iteração", "função objetivo", algoritmo.nome, configuracao)
+        graficos = Graficos("iteração", "função objetivo", algoritmo.nome, configuracao, grafico)
         graficos.gerar(algoritmo)
 
         graficos = None
 
         terminoGraficos = time.perf_counter()
 
-        print(f"Geração do gráfico do {algoritmo.nome} da função objetivo em {terminoGraficos - inicioGraficos:0.4f} segundos")
+        print(f"Geração do gráfico {grafico} do {algoritmo.nome} da função objetivo em {terminoGraficos - inicioGraficos:0.4f} segundos")        
+
+    @classmethod
+    def gerarGraficoFuncaoObjetivo(cls, algoritmo, configuracao):
+        graficos = [configuracao.grafico]
+
+        outroGrafico = "value"
+        if configuracao.grafico == "value":
+            outroGrafico = "best"
+
+        graficos.append(outroGrafico)
+
+        for grafico in graficos:
+            cls.gerarGrafico(algoritmo, configuracao, grafico)
+
         print("")
 
     @classmethod

@@ -17,7 +17,7 @@ class Util:
 
         fator = -1/int(numeroTotalIteracoes*0.9)
 
-        # função linear => f(x) = mx + b        
+        # função linear => f(x) = mx + b
         return iteracao * fator + 1
 
     @classmethod
@@ -83,12 +83,14 @@ class Util:
             return None
 
         numeroCidades = len(dados["coordenadas"])
+
+        novosDados = Node.copiarDados(dados)
         
         if ((contador + 1) % configuracao.gatilhoRestart == 0):
             
-            dados["ordemVisitacao"] = random.sample(range(1,numeroCidades), numeroCidades-1)
+            novosDados["ordemVisitacao"] = random.sample(range(1,numeroCidades), numeroCidades-1)
             
-            return Node(dados, configuracao.funcaoObjetivo)
+            return Node(novosDados, configuracao.funcaoObjetivo)
 
         return None
 
@@ -98,14 +100,23 @@ class Util:
         if restart != None:
             return restart
 
+        novosDados = Node.copiarDados(dados)
+
+        cls.aplicarPequenaAlteracao(configuracao, dados, novosDados)
+        
+        return Node(novosDados, configuracao.funcaoObjetivo)
+
+    @classmethod
+    def aplicarPequenaAlteracao(cls, configuracao, dados, novosDados):
         iteracoes = 1
-                
+
         for iteracao in range(iteracoes):
             i, j = cls.obterDoisNumerosInteirosDiferentes(len(dados["ordemVisitacao"])-1)
             
-            dados["ordemVisitacao"][i], dados["ordemVisitacao"][j] = dados["ordemVisitacao"][j], dados["ordemVisitacao"][i]
-
-        return Node(dados, configuracao.funcaoObjetivo)
+            if configuracao.problema == 3:
+                dados["ordemVisitacao"][i], dados["ordemVisitacao"][j] = dados["ordemVisitacao"][j], dados["ordemVisitacao"][i]
+            else:
+                novosDados["ordemVisitacao"][i], novosDados["ordemVisitacao"][j] = dados["ordemVisitacao"][j], dados["ordemVisitacao"][i]
 
     @classmethod
     def obterDoisNumerosInteirosDiferentes(cls, limiteSuperior):

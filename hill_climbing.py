@@ -31,7 +31,7 @@ class HillClimbing:
 
         while contador < self.configuracao.numeroTotalIteracoes:
 
-            vizinho = Util.gerarVizinho(self.dados, self.configuracao)
+            vizinho = Util.gerarVizinho(Node.copiarDados(atual.state), self.configuracao)
             
             mantemValorAnterior = True
             if contador == 0:

@@ -55,21 +55,34 @@ class GraficosGeracao:
         print(f"Geração da tabela/gráfico de comparativo de performance em {terminoComparativo - inicioComparativo:0.4f} segundos")
 
     @classmethod
-    def finalizar(cls, configuracao, resultado):
+    def gerarGraficoPerformance(cls, configuracao):
         
+        tiposGrafico = []
+
         outroGrafico = "value"
         if configuracao.grafico == "value":
             outroGrafico = "best"
 
-        rotulo = "{0}-performance-algoritmos-{1}".format(configuracao.problema.lower().replace(" ", "-"), configuracao.grafico)
-        
-        titulo = "Análise de Perfomance - " + configuracao.problema
-        caminhoImagem = "relatorio/imagens/{0}/{1}.png".format(configuracao.versao, rotulo)
+        tiposGrafico.append(outroGrafico)
+        tiposGrafico.append(configuracao.grafico)        
 
-        graficos = Graficos("iteração", "função objetivo", configuracao=configuracao)
-        graficos.gerarGraficoPerformance(titulo, caminhoImagem)
+        titulo = "Análise de Perfomance - " + configuracao.problema
+        for grafico in tiposGrafico:
+            rotulo = "{0}-performance-algoritmos-{1}".format(configuracao.problema.lower().replace(" ", "-"), grafico)
+            
+            caminhoImagem = "relatorio/imagens/{0}/{1}.png".format(configuracao.versao, rotulo)
+
+            graficos = Graficos("iteração", "função objetivo", configuracao=configuracao)
+            graficos.gerarGraficoPerformance(titulo, caminhoImagem, grafico)
+            
+            graficos = None
+
+        return outroGrafico, rotulo, caminhoImagem
+
+    @classmethod
+    def finalizar(cls, configuracao, resultado):
         
-        graficos = None        
+        outroGrafico, rotulo, caminhoImagem = cls.gerarGraficoPerformance(configuracao)
 
         valoresTabela = str(resultado)
         textoResumo = ""

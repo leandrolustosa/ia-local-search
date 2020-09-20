@@ -49,7 +49,7 @@ class SimulatedAnnealing:
             probabilidade = Util.obterProbabilidade(contador, self.numeroTotalIteracoes)
             probabilidades.append(probabilidade)
 
-            vizinho = Util.gerarVizinho(self.dados, self.configuracao)
+            vizinho = Util.gerarVizinho(Node.copiarDados(atual.state), self.configuracao)
 
             mantemValorAnterior = True
             if contador == 0:

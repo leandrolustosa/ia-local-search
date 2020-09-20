@@ -31,7 +31,7 @@ class HillClimbingRestart:
         melhorValor = atual.value
 
         while contador < self.configuracao.numeroTotalIteracoes:            
-            vizinho = Util.gerarVizinho(self.dados, self.configuracao, contador)
+            vizinho = Util.gerarVizinho(Node.copiarDados(atual.state), self.configuracao, contador)
             
             mantemValorAnterior = True
             if contador == 0:

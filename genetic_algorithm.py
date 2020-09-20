@@ -103,13 +103,13 @@ class GeneticAlgorithm:
         if numeroAleatorio <= self.probabilidadeMutacao:
 
             if individuo["x"] != None:
-                Util.gerarPerturbacao(self.dados, self.configuracao, "x")
+                Util.gerarPerturbacao(individuo, self.configuracao, "x")
 
             if individuo["y"] != None:
-                Util.gerarPerturbacao(self.dados, self.configuracao, "y")
+                Util.gerarPerturbacao(individuo, self.configuracao, "y")
 
             if individuo["ordemVisitacao"] != None:
-                Util.gerarNovaRotaComPequenaAlteracao(self.dados, self.configuracao)
+                Util.gerarNovaRotaComPequenaAlteracao(individuo, self.configuracao)
 
     def calcularMediaPonderada(self, individuo1, individuo2, filho1, filho2, propriedade):
         fator = random.uniform(0.0, 1.0)
